@@ -1,12 +1,12 @@
 # Grant Trader
 
-A stock market-style trading game for predicting grantmaking decisions by Open Philanthropy, Coefficient Giving, and the Survival and Flourishing Fund.
+A stock market-style trading game for predicting grantmaking decisions by Coefficient Giving, Manifund regranters, and the Survival and Flourishing Fund.
 
 ## Overview
 
 Grant Trader allows users to test their grantmaking judgment by making predictions about future grants. The platform:
 
-- Lists organizations that have received grants from OP, CG, and SFF
+- Lists organizations that have received grants from Manifund, CG, and SFF
 - Displays historical grant data including amounts and dates
 - Allows users to predict how much funding organizations will receive in future years
 - Tracks prediction accuracy with detailed metrics and visualizations
@@ -19,7 +19,7 @@ Grant Trader allows users to test their grantmaking judgment by making predictio
 - **Prediction System**: Make predictions about future grant amounts by organization and year
 - **User Profiles**: Track your prediction accuracy with charts and statistics
 - **Leaderboards**: See how your predictions compare to other users
-- **Automated Data Updates**: Regular scraping of OP/CG and SFF websites for new grants
+- **Automated Data Updates**: Regular scraping of OP/CG, SFF, and Manifund websites for new grants
 - **Prediction Resolution**: Automatic resolution of predictions when new grant data becomes available
 
 ## Technology Stack
