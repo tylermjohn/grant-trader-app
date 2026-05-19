@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://corey-autonomic-overwhelmingly.ngrok-free.dev/api/:path*"
+    }
+  ]
+}
