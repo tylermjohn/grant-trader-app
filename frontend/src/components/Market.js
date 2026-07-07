@@ -9,29 +9,29 @@ function Market({ user, token }) {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
+    const fetchOrganizations = async () => {
+      setLoading(true);
+      try {
+        const params = new URLSearchParams();
+        if (funderFilter) params.append('funder', funderFilter);
+        if (searchTerm) params.append('search', searchTerm);
+
+        const response = await fetch(`/api/organizations?${params}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setOrganizations(Array.isArray(data) ? data : []);
+      } catch (err) {
+        console.error('Error fetching organizations:', err);
+        setOrganizations([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchOrganizations();
   }, [funderFilter, searchTerm]);
-
-  const fetchOrganizations = async () => {
-    setLoading(true);
-    try {
-      const params = new URLSearchParams();
-      if (funderFilter) params.append('funder', funderFilter);
-      if (searchTerm) params.append('search', searchTerm);
-
-      const response = await fetch(`/api/organizations?${params}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      setOrganizations(Array.isArray(data) ? data : []);
-    } catch (err) {
-      console.error('Error fetching organizations:', err);
-      setOrganizations([]);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const formatCurrency = (amount) => {
     if (!amount) return '$0';

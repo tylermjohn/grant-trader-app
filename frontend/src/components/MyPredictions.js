@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import './MyPredictions.css';
 
@@ -7,11 +7,7 @@ function MyPredictions({ token }) {
   const [loading, setLoading] = useState(true);
   const [filterStatus, setFilterStatus] = useState('all');
 
-  useEffect(() => {
-    fetchPredictions();
-  }, []);
-
-  const fetchPredictions = async () => {
+  const fetchPredictions = useCallback(async () => {
     setLoading(true);
     try {
       const response = await fetch('/api/predictions/my-predictions', {
@@ -26,7 +22,11 @@ function MyPredictions({ token }) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]);
+
+  useEffect(() => {
+    fetchPredictions();
+  }, [fetchPredictions]);
 
   const handleDelete = async (predictionId) => {
     if (!window.confirm('Are you sure you want to delete this prediction?')) {
@@ -60,10 +60,6 @@ function MyPredictions({ token }) {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(amount);
-  };
-
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString();
   };
 
   const filteredPredictions = predictions.filter((pred) => {

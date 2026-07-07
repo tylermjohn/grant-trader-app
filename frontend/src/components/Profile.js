@@ -22,31 +22,31 @@ function Profile({ token }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const fetchProfileData = async () => {
+      setLoading(true);
+      try {
+        const [userRes, statsRes, predsRes] = await Promise.all([
+          fetch(`/api/users/${userId}`),
+          fetch(`/api/users/${userId}/stats`),
+          fetch(`/api/predictions/user/${userId}`),
+        ]);
+
+        const userData = await userRes.json();
+        const statsData = await statsRes.json();
+        const predsData = await predsRes.json();
+
+        setUser(userData);
+        setStats(statsData);
+        setPredictions(predsData);
+      } catch (err) {
+        console.error('Error fetching profile:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchProfileData();
   }, [userId]);
-
-  const fetchProfileData = async () => {
-    setLoading(true);
-    try {
-      const [userRes, statsRes, predsRes] = await Promise.all([
-        fetch(`/api/users/${userId}`),
-        fetch(`/api/users/${userId}/stats`),
-        fetch(`/api/predictions/user/${userId}`),
-      ]);
-
-      const userData = await userRes.json();
-      const statsData = await statsRes.json();
-      const predsData = await predsRes.json();
-
-      setUser(userData);
-      setStats(statsData);
-      setPredictions(predsData);
-    } catch (err) {
-      console.error('Error fetching profile:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const formatCurrency = (amount) => {
     if (!amount) return '$0';

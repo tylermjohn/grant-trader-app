@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './OrganizationDetail.css';
 
@@ -14,11 +14,7 @@ function OrganizationDetail({ user, token }) {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  useEffect(() => {
-    fetchData();
-  }, [id]);
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
     try {
       const [orgRes, grantsRes] = await Promise.all([
@@ -44,7 +40,11 @@ function OrganizationDetail({ user, token }) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id, token]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const handlePredictionSubmit = async (e) => {
     e.preventDefault();
