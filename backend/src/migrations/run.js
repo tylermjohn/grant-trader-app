@@ -14,7 +14,7 @@ const migrations = [
     name TEXT NOT NULL,
     description TEXT,
     website TEXT,
-    funder TEXT NOT NULL CHECK(funder IN ('OP', 'CG', 'SFF')),
+    funder TEXT NOT NULL CHECK(funder IN ('OP', 'CG', 'SFF', 'Manifund')),
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )`,
@@ -22,7 +22,7 @@ const migrations = [
   `CREATE TABLE IF NOT EXISTS grants (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     organization_id INTEGER NOT NULL,
-    funder TEXT NOT NULL CHECK(funder IN ('OP', 'CG', 'SFF')),
+    funder TEXT NOT NULL CHECK(funder IN ('OP', 'CG', 'SFF', 'Manifund')),
     amount REAL NOT NULL,
     currency TEXT DEFAULT 'USD',
     grant_date DATE NOT NULL,
@@ -37,7 +37,7 @@ const migrations = [
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
     organization_id INTEGER NOT NULL,
-    funder TEXT NOT NULL CHECK(funder IN ('OP', 'CG', 'SFF')),
+    funder TEXT NOT NULL CHECK(funder IN ('OP', 'CG', 'SFF', 'Manifund')),
     prediction_year INTEGER NOT NULL,
     predicted_amount REAL NOT NULL,
     actual_amount REAL,
